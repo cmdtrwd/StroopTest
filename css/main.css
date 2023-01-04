@@ -105,6 +105,7 @@ header #content-container .box {
   justify-content: space-between;
   padding: 80px 0;
   box-sizing: border-box;
+  border: 1px solid white;
   transition: 0.3s all ease-in-out;
 }
 header #content-container .box h1 {
