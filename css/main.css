@@ -76,8 +76,7 @@ header #top-nav {
   color: #DCD7C9;
 }
 header #content-container {
-  height: calc(100vh - 64px);
-  padding: 80px;
+  height: calc(100vh - 64px - 130px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -134,7 +133,7 @@ header #content-container .box.active {
   background-color: white;
   border: 1px solid #DCD7C9;
 }
-header #content-container .box #key-layout {
+header #key-layout {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -142,17 +141,26 @@ header #content-container .box #key-layout {
   gap: 160px;
   width: 100%;
   box-sizing: border-box;
+  padding: 32px 0;
 }
-header #content-container .box #key-layout #keyL, header #content-container .box #key-layout #keyA {
-  padding: 32px;
+header #key-layout #keyL, header #key-layout #keyA {
+  padding: 16px;
+  width: 64px;
+  text-align: center;
+  box-sizing: border-box;
   border: 1px solid #2C3639;
   border-radius: 8px;
+  box-shadow: #3F4E4F 0px 4px 0px, rgba(63, 78, 79, 0.3) -2px 2px 0px inset;
 }
-header #content-container .box #key-layout .active#keyL, header #content-container .box #key-layout .active#keyA {
+header #key-layout .active#keyL, header #key-layout .active#keyA {
   animation-name: keyPress;
   animation-duration: 0.2s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
+}
+header #key-layout #keyL h3, header #key-layout #keyA h3 {
+  font-size: 2em;
+  font-weight: 700;
 }
 @keyframes circle-push {
   0% {

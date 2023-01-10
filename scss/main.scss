@@ -48,8 +48,8 @@ header{
     }
 
     #content-container{
-        height: calc(100vh - 64px);
-        padding: $gap-base*5;
+        height: calc(100vh - 64px - 130px);
+        // padding: $gap-base*5;
         box-sizing: border-box;
         @include flex-column-center();        
         .box{
@@ -104,29 +104,37 @@ header{
                 border: 1px solid $quaterary-color;
             }
 
-            #key-layout{
-                @include flex-row-center();
-                // justify-content: space-between;
-                gap: $gap-base*10;
-                width: 100%;
-                box-sizing: border-box;
-                %key{
-                    padding: $gap-base*2;
-                    border: 1px solid $primary-color;
-                    border-radius: 8px;
-                    
-                    &.active{
-                        animation-name: keyPress;
-                        animation-duration: 0.2s;
-                        animation-timing-function: ease-in-out;
-                        animation-iteration-count: 1;                                              
-                    }
-                }
-                
-                #keyL, #keyA{
-                    @extend %key;
-                }
+        }
+    }
+    #key-layout{
+        @include flex-row-center();            
+        gap: $gap-base*10;
+        width: 100%;
+        box-sizing: border-box;
+        padding: $gap-base*2 0;
+        %key{
+            padding: $gap-base*1;
+            width: $gap-base*4;
+            text-align: center;
+            box-sizing: border-box;
+            border: 1px solid $primary-color;
+            border-radius: 8px;
+            box-shadow: $secondary-color 0px 4px 0px, transparentize($secondary-color, 0.7) -2px 2px 0px inset;
+            &.active{
+                animation-name: keyPress;
+                animation-duration: 0.2s;
+                animation-timing-function: ease-in-out;
+                animation-iteration-count: 1;                                              
             }
+
+            h3{
+                font-size: 2em;
+                font-weight: 700;
+            }
+        }
+        
+        #keyL, #keyA{
+            @extend %key;
         }
     }
 }

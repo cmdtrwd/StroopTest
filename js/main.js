@@ -40,20 +40,23 @@ document.addEventListener('keypress', (event)=>{
     let key_press = event.key;
     let key_code = event.code;
 
-    console.log("key pressed: " + key_press + ", key code: " + key_code);
-
+    
     if(key_press == "l"){
         if (isKeyEnabled){
-            document.getElementById("keyL").classList.add("active");            
+            let current_key = document.getElementById("keyL");
+            current_key.classList.add("active");            
             isKeyEnabled = false;
             keyPressInterval = setInterval(DeactivateKey, 200);
+            console.log("key pressed: " + current_key.dataset.key + ", key code: " + key_code);
         }
     }
     else if (key_press == "a"){
         if (isKeyEnabled){
-            document.getElementById("keyA").classList.add("active");            
+            let current_key = document.getElementById("keyA");
+            current_key.classList.add("active");            
             isKeyEnabled = false;
             keyPressInterval = setInterval(DeactivateKey, 200);
+            console.log("key pressed: " + current_key.dataset.key + ", key code: " + key_code);
         }
     }
 
