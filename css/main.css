@@ -98,6 +98,12 @@ header #content-container .box h1 {
   font-size: 3em;
   color: #2C3639;
 }
+header #content-container .box #currentImage {
+  display: none;
+}
+header #content-container .box #currentImage.active {
+  display: block;
+}
 header #content-container .box #currentImage img {
   width: auto;
   height: 300px;

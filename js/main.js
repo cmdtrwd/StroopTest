@@ -1,23 +1,28 @@
-let count = 0;
-let pushInterval;
-let isEnabled = true;
+// NOT IN USE
+// let count = 0;          
+// let pushInterval;
+// let isEnabled = true;
+
+let betweenTrialInterval;       //Waiting period before the next trial is shown
+let waitingPeriod = 500         //Waiting period in milliseconds
+
 
 let keyPressInterval;
 let isKeyEnabled = true;
 
 // Define variables for retrieving file information
 let fileName; 
-let namePrefix = "_male";
+let namePrefix;
 let filePath = "../images/";
 let fileExtension = ".PNG";
-let noOfFiles = 5;
-let maxTrials = 20;
+let noOfFiles = 5;              //Number of image files in the folder
+let maxTrials = 50;             //Number of maximum trials to run
 let images = []; 
 let currentImageNo = 0;
-let probabilityRatioMale = 0.7;
+let probabilityRatioMale = 0.7; //A probability ratio to generate male over female images
 
 // Function to set the timer for the push button
-// IS NOT IN USE
+// NOT IN USE
 /*
 function NotifyPush() {
     count++;
@@ -62,6 +67,7 @@ function RandomGender(){
     }
 }
 
+// Function to generate an output with a random image
 function RandomImage(){
     return Math.floor(Math.random()*noOfFiles).toString();
 }
@@ -76,16 +82,33 @@ function GetFileInfo(){
     }
 }
 
+// Function to display next image in a sequence
 function DisplayImage(imageNo){
     let word = document.getElementById("word");
     word.innerHTML = "";
-    let currentImage = document.getElementById("currentImage");    
+    let currentImage = document.getElementById("currentImage");
+    currentImage.classList.add("active");
     currentImage.innerHTML = '<img src="' + images[imageNo] +'" alt="">';
+    if (betweenTrialInterval){
+        clearInterval(betweenTrialInterval);
+    }
 }
 
+// Function to make the screen blank during a waiting period before showing the next image in a sequence
+function TrialTransition(){
+    let currentImage = document.getElementById("currentImage");
+    currentImage.classList.remove("active");
+
+    betweenTrialInterval = setInterval(DisplayImage, waitingPeriod, currentImageNo);    
+}
+
+// Generate a sequence of images on load
 document.onload = GetFileInfo();
+// Display the first image in a sequence on load
 document.onload = DisplayImage(currentImageNo);
 
+
+// Detecting the key press event as a response from a participant and later display the next image in a sequence
 document.addEventListener('keypress', (event)=>{
     let key_press = event.key;
     let key_code = event.code;
@@ -96,7 +119,7 @@ document.addEventListener('keypress', (event)=>{
             let current_key = document.getElementById("keyL");
             current_key.classList.add("active");            
             isKeyEnabled = false;
-            keyPressInterval = setInterval(DeactivateKey, 200);
+            keyPressInterval = setInterval(DeactivateKey, waitingPeriod);
             console.log("key pressed: " + current_key.dataset.key + ", key code: " + key_code);
         }
     }
@@ -105,7 +128,7 @@ document.addEventListener('keypress', (event)=>{
             let current_key = document.getElementById("keyA");
             current_key.classList.add("active");            
             isKeyEnabled = false;
-            keyPressInterval = setInterval(DeactivateKey, 200);
+            keyPressInterval = setInterval(DeactivateKey, waitingPeriod);
             console.log("key pressed: " + current_key.dataset.key + ", key code: " + key_code);
         }
     }
@@ -114,7 +137,7 @@ document.addEventListener('keypress', (event)=>{
         currentImageNo++;
         if (currentImageNo < maxTrials)
         {
-            DisplayImage(currentImageNo);
+            TrialTransition();
         }
     }
 

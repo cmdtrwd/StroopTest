@@ -71,6 +71,10 @@ header{
             }
 
             #currentImage{
+                display: none;
+                &.active{
+                    display: block;
+                }
                 img{
                     width: auto;
                     height: 300px;
