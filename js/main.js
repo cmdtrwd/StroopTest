@@ -5,6 +5,15 @@ let isEnabled = true;
 let keyPressInterval;
 let isKeyEnabled = true;
 
+// Define variables for retrieving file information
+let fileName; 
+let namePrefix = "_male";
+let filePath = "../images/";
+let fileExtension = ".PNG";
+let noOfFiles = 5;
+let images = []; 
+
+
 function NotifyPush() {
 	// alert("Push!");
     count++;
@@ -35,6 +44,24 @@ function DeactivateKey(){
     isKeyEnabled = true;
     clearInterval(keyPressInterval);
 }
+
+function GetFileInfo(){
+    console.log("GetFileInfo is called");
+    namePrefix = "_male";
+    for (let i = 0; i<noOfFiles; i++){   
+        fileName = "file_" + i.toString();
+        images[i] = filePath + fileName + namePrefix + fileExtension;
+        console.log(images[i]);
+    }
+}
+
+function DisplayImage(imageNo){
+    let currentImage = document.getElementById("currentImage");
+    currentImage.innerHTML = '<img src="' + images[imageNo] +'" alt="">';
+}
+
+document.onload = GetFileInfo();
+document.onload = DisplayImage(0);
 
 document.addEventListener('keypress', (event)=>{
     let key_press = event.key;

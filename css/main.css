@@ -78,10 +78,7 @@ header #top-nav {
 header #content-container {
   height: calc(100vh - 64px - 130px);
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
 }
 header #content-container .box {
   width: 100%;
@@ -103,6 +100,7 @@ header #content-container .box h1 {
   color: #2C3639;
 }
 header #content-container .box #circle {
+  display: none;
   width: 100px;
   height: 100px;
   border-radius: 50%;

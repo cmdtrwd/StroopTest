@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS Workshop</title>
     <link rel="stylesheet" href="css/main.css">
-    <script src="/js/main.js"></script>
 </head>
 <body>
     <header>
@@ -15,7 +14,19 @@
         </nav>
         <section id="content-container">
             <section class="box">
-                <h1 id="word">JavaScript 101</h1>
+                <h1 id="word">Page 01</h1>
+                <div id="currentImage">
+                </div>
+                <div id="circle"></div>
+                <div class="button" onclick="NotifyPush()">Push</div>
+            </section>
+            <section class="box">
+                <h1 id="word">Page 02</h1>
+                <div id="circle"></div>
+                <div class="button" onclick="NotifyPush()">Push</div>
+            </section>
+            <section class="box">
+                <h1 id="word">Page 03</h1>
                 <div id="circle"></div>
                 <div class="button" onclick="NotifyPush()">Push</div>
             </section>
@@ -29,5 +40,6 @@
             </div>
         </section>
     </header>    
+    <script src="/js/main.js"></script>
 </body>
 </html>
