@@ -88,7 +88,6 @@ header #content-container .box {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  justify-content: space-between;
   padding: 80px 0;
   box-sizing: border-box;
   border: 1px solid white;
@@ -98,6 +97,10 @@ header #content-container .box h1 {
   font-weight: bold;
   font-size: 3em;
   color: #2C3639;
+}
+header #content-container .box #currentImage img {
+  width: auto;
+  height: 300px;
 }
 header #content-container .box #circle {
   display: none;
@@ -113,6 +116,12 @@ header #content-container .box #circle.active {
   animation-fill-mode: both;
   animation-iteration-count: 2;
   animation-direction: alternate;
+}
+header #content-container .box #word {
+  display: none;
+}
+header #content-container .box #push-button {
+  display: none;
 }
 header #content-container .box .button {
   width: 100px;

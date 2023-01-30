@@ -11,11 +11,15 @@ let namePrefix = "_male";
 let filePath = "../images/";
 let fileExtension = ".PNG";
 let noOfFiles = 5;
+let maxTrials = 20;
 let images = []; 
+let currentImageNo = 0;
+let probabilityRatioMale = 0.7;
 
-
+// Function to set the timer for the push button
+// IS NOT IN USE
+/*
 function NotifyPush() {
-	// alert("Push!");
     count++;
     console.log("Push button is clicked");
     console.log("Push " + count + " times");
@@ -36,8 +40,9 @@ function DeactivatePush(){
     let box = circle.parentElement;
     console.log(box);
     box.classList.toggle("active");
-}
+}*/
 
+// Function to re-enable the keys after a specified waiting period
 function DeactivateKey(){
     document.getElementById("keyA").classList.remove("active");
     document.getElementById("keyL").classList.remove("active");
@@ -45,23 +50,41 @@ function DeactivateKey(){
     clearInterval(keyPressInterval);
 }
 
-function GetFileInfo(){
-    console.log("GetFileInfo is called");
-    namePrefix = "_male";
-    for (let i = 0; i<noOfFiles; i++){   
-        fileName = "file_" + i.toString();
+
+// Function to generate an output with random gender based on the probability ratio
+function RandomGender(){
+    let randomNum = Math.random();
+    if (randomNum < probabilityRatioMale){
+        return "_male";
+    }
+    else{
+        return "_female";
+    }
+}
+
+function RandomImage(){
+    return Math.floor(Math.random()*noOfFiles).toString();
+}
+
+// Function to randomise the sequences of images
+function GetFileInfo(){    
+    for (let i = 0; i<maxTrials; i++){   
+        namePrefix = RandomGender();
+        fileName = "file_" + RandomImage();
         images[i] = filePath + fileName + namePrefix + fileExtension;
         console.log(images[i]);
     }
 }
 
 function DisplayImage(imageNo){
-    let currentImage = document.getElementById("currentImage");
+    let word = document.getElementById("word");
+    word.innerHTML = "";
+    let currentImage = document.getElementById("currentImage");    
     currentImage.innerHTML = '<img src="' + images[imageNo] +'" alt="">';
 }
 
 document.onload = GetFileInfo();
-document.onload = DisplayImage(0);
+document.onload = DisplayImage(currentImageNo);
 
 document.addEventListener('keypress', (event)=>{
     let key_press = event.key;
@@ -84,6 +107,14 @@ document.addEventListener('keypress', (event)=>{
             isKeyEnabled = false;
             keyPressInterval = setInterval(DeactivateKey, 200);
             console.log("key pressed: " + current_key.dataset.key + ", key code: " + key_code);
+        }
+    }
+    
+    if ((key_press == "a") || (key_press =="l")){
+        currentImageNo++;
+        if (currentImageNo < maxTrials)
+        {
+            DisplayImage(currentImageNo);
         }
     }
 

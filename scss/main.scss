@@ -58,7 +58,7 @@ header{
             height: 100%;
             background-color: $quaterary-color;
             @include flex-column-center();
-            justify-content: space-between;
+            // justify-content: space-between;
             padding: $gap-base*5 0;
             box-sizing: border-box;
             border: 1px solid white;
@@ -68,6 +68,13 @@ header{
                 font-weight: bold;
                 font-size: 3em;
                 color: $primary-color;
+            }
+
+            #currentImage{
+                img{
+                    width: auto;
+                    height: 300px;
+                }
             }
 
             #circle{
@@ -85,6 +92,14 @@ header{
                     animation-iteration-count: 2;
                     animation-direction: alternate;
                 }
+            }
+
+            #word{
+                display: none;
+            }
+
+            #push-button{
+                display: none;
             }
 
             .button{
