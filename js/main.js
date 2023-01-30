@@ -4,7 +4,7 @@
 // let isEnabled = true;
 
 let betweenTrialInterval;       //Waiting period before the next trial is shown
-let waitingPeriod = 500         //Waiting period in milliseconds
+let waitingPeriod = 500;        //Waiting period in milliseconds
 
 
 let keyPressInterval;
@@ -51,8 +51,7 @@ function DeactivatePush(){
 function DeactivateKey(){
     document.getElementById("keyA").classList.remove("active");
     document.getElementById("keyL").classList.remove("active");
-    isKeyEnabled = true;
-    clearInterval(keyPressInterval);
+    isKeyEnabled = true;    
 }
 
 
@@ -85,12 +84,13 @@ function GetFileInfo(){
 // Function to display next image in a sequence
 function DisplayImage(imageNo){
     let word = document.getElementById("word");
-    word.innerHTML = "";
+    word.innerHTML = "Trial " + (currentImageNo+1) + "/" + maxTrials; 
     let currentImage = document.getElementById("currentImage");
     currentImage.classList.add("active");
     currentImage.innerHTML = '<img src="' + images[imageNo] +'" alt="">';
     if (betweenTrialInterval){
         clearInterval(betweenTrialInterval);
+        DeactivateKey();
     }
 }
 
@@ -98,7 +98,7 @@ function DisplayImage(imageNo){
 function TrialTransition(){
     let currentImage = document.getElementById("currentImage");
     currentImage.classList.remove("active");
-
+    
     betweenTrialInterval = setInterval(DisplayImage, waitingPeriod, currentImageNo);    
 }
 
@@ -118,27 +118,27 @@ document.addEventListener('keypress', (event)=>{
         if (isKeyEnabled){
             let current_key = document.getElementById("keyL");
             current_key.classList.add("active");            
-            isKeyEnabled = false;
-            keyPressInterval = setInterval(DeactivateKey, waitingPeriod);
+            isKeyEnabled = false;            
             console.log("key pressed: " + current_key.dataset.key + ", key code: " + key_code);
+            currentImageNo++;
+            if (currentImageNo < maxTrials)
+            {
+                TrialTransition();
+            }
         }
     }
     else if (key_press == "a"){
         if (isKeyEnabled){
             let current_key = document.getElementById("keyA");
             current_key.classList.add("active");            
-            isKeyEnabled = false;
-            keyPressInterval = setInterval(DeactivateKey, waitingPeriod);
+            isKeyEnabled = false;            
             console.log("key pressed: " + current_key.dataset.key + ", key code: " + key_code);
+            currentImageNo++;
+            if (currentImageNo < maxTrials)
+            {
+                TrialTransition();
+            }
         }
-    }
-    
-    if ((key_press == "a") || (key_press =="l")){
-        currentImageNo++;
-        if (currentImageNo < maxTrials)
-        {
-            TrialTransition();
-        }
-    }
+    }  
 
 }, false);

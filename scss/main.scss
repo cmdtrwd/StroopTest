@@ -99,7 +99,9 @@ header{
             }
 
             #word{
-                display: none;
+                // display: none;
+                position: absolute;
+                top: 120px;
             }
 
             #push-button{

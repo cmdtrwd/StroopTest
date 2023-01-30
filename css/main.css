@@ -124,7 +124,8 @@ header #content-container .box #circle.active {
   animation-direction: alternate;
 }
 header #content-container .box #word {
-  display: none;
+  position: absolute;
+  top: 120px;
 }
 header #content-container .box #push-button {
   display: none;
