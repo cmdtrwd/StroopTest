@@ -69,3 +69,14 @@ async function Start(){
 }
 
 Start();
+
+// Import modules
+const moduleA = require('./modules/mymodule');
+
+console.log(moduleA.GetCurrentTime());
+moduleA.Reset();
+moduleA.Start();
+setTimeout(()=>{
+    moduleA.Stop();
+    console.log(moduleA.GetDuration());
+}, 3000);
