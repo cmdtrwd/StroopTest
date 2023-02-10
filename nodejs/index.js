@@ -80,3 +80,12 @@ setTimeout(()=>{
     moduleA.Stop();
     console.log(moduleA.GetDuration());
 }, 3000);
+
+
+// Import I/O module
+const fs = require('fs');
+const outputText = "Hello test test "+ moduleA.GetDuration();
+fs.writeFileSync("output/result.txt", outputText);
+console.log("file is created!");
+
+
