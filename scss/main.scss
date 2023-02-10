@@ -70,6 +70,18 @@ header{
                 color: $primary-color;
             }
 
+            #instruction{
+                max-width: 1200px;
+                padding: 0 $gap-base*5;
+                line-height: 150%;
+                text-align: center;
+                font-size: 2em;
+                display: none;
+                &.active{
+                    display: block;
+                }
+            }            
+
             #currentImage{
                 display: none;
                 &.active{
