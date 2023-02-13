@@ -108,7 +108,7 @@ console.log("file is created!");
 // Import http module
 const http = require('http');
 
-const server = http.createServer(function(req, res){
+http.createServer(function(req, res){
     res.setHeader('Content-Type', 'text/html'); // set content type header
     res.write("Server is created");         //Send a response to a request
 
@@ -120,7 +120,7 @@ const server = http.createServer(function(req, res){
         res.end();                          //End a response
     });
 
+}).listen(3000, ()=>{
+    // Assign a port to listen to request
+    console.log("Start server at the port 3000");
 });
-
-// Assign a port to listen to requests
-server.listen(3000);
