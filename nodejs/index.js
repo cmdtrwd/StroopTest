@@ -82,11 +82,20 @@ setTimeout(()=>{
 }, 3000);
 
 
+
+
+
+
+
+
 // Import I/O module
 const fs = require('fs');
 
 // Read Data
 fs.readFile("input/data.txt", "utf-8", (err, data)=>{
+    if(err){
+        return console.log("Something went wrong when reading data");
+    }
     console.log(data);
 });
 
@@ -96,3 +105,22 @@ fs.writeFileSync("output/result.txt", outputText);
 console.log("file is created!");
 
 
+// Import http module
+const http = require('http');
+
+const server = http.createServer(function(req, res){
+    res.setHeader('Content-Type', 'text/html'); // set content type header
+    res.write("Server is created");         //Send a response to a request
+
+    fs.readFile("input/data.txt", "utf-8", (err, data)=>{
+        if(err){
+            res.end("Something went wrong when reading data", err);
+        }        
+        res.write("<h1>" + data +"<h1>");   //Send a response to a request
+        res.end();                          //End a response
+    });
+
+});
+
+// Assign a port to listen to requests
+server.listen(3000);
