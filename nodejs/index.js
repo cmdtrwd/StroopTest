@@ -84,6 +84,13 @@ setTimeout(()=>{
 
 // Import I/O module
 const fs = require('fs');
+
+// Read Data
+fs.readFile("input/data.txt", "utf-8", (err, data)=>{
+    console.log(data);
+});
+
+// Write Data
 const outputText = "Hello test test "+ moduleA.GetDuration();
 fs.writeFileSync("output/result.txt", outputText);
 console.log("file is created!");
