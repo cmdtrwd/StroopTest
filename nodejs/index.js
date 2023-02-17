@@ -110,7 +110,20 @@ const http = require('http');
 
 http.createServer(function(req, res){
     res.setHeader('Content-Type', 'text/html'); // set content type header
-    res.write("Server is created");         //Send a response to a request
+    res.write("<p>Server is created</p>");         //Send a response to a request
+    
+    const pathname = req.url;
+    res.write("path: " + pathname);
+   
+    if (pathname === "/save"){
+        res.write("<h2>File is saved</h2>");
+    }
+    else if (pathname === "/product"){
+        res.write("<h2>Product page</h2>");
+    }
+    else{
+        res.write("<h2>Not Found</h2>");
+    }
 
     fs.readFile("input/data.txt", "utf-8", (err, data)=>{
         if(err){
@@ -120,10 +133,10 @@ http.createServer(function(req, res){
             "<p>Eng Studio</p>"        
         // res.write("<h1>" + data +"<h1>");   //Send a response to a request
         res.write(myresponse);   //Send a response to a request
-        res.end();                          //End a response
+        res.end("end my response");                          //End a response
     });
 
-}).listen(3000, ()=>{
+}).listen(3000, 'localhost', ()=>{
     // Assign a port to listen to request
     console.log("Start server at the port 3000");
 });
