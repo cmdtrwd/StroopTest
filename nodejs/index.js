@@ -114,6 +114,8 @@ http.createServer(function(req, res){
     
     const pathname = req.url;
     res.write("path: " + pathname);
+
+    console.log("dir: " + __dirname);
    
     if (pathname === "/save"){
         res.write("<h2>File is saved</h2>");
@@ -122,6 +124,7 @@ http.createServer(function(req, res){
         res.write("<h2>Product page</h2>");
     }
     else{
+        // res.writeHead(404);
         res.write("<h2>Not Found</h2>");
     }
 
