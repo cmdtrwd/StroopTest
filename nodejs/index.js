@@ -110,46 +110,83 @@ const path = require('path');
 // Import http module
 const http = require('http');
 
-http.createServer(function (req, res) {
-    // res.setHeader('Content-Type', 'text/html'); // set content type header
-    // res.write("<p>Server is created</p>");         //Send a response to a request
+// Import URL module
+const url_m = require('url');
 
-    const pathname = req.url;
-    // res.write("path: " + pathname);
+// Import express module (After installing express module using npm)
+const express = require('express');
+const app = express();
 
-    // use path.dirname on __dirname to get the root directory
-    const rootDir = path.dirname(__dirname);
-    console.log("dir: " + path.dirname(__dirname));
+// Serve static files from the "public" directory
+app.use(express.static('public'));
 
-    // Read the data from HTML template
-    const savePage = fs.readFileSync(rootDir + "/savefile.html", "utf-8");
-
-
-    if (pathname === "/save") {
-        res.end(savePage);
-    }
-    else if (pathname === "/product") {
-        res.write("<h2>Product page</h2>");
-        res.end();
-    }
-    else {
-        // res.writeHead(404);
-        res.write("<h2>Not Found</h2>");
-
-
-        fs.readFile("input/data.txt", "utf-8", (err, data) => {
-            if (err) {
-                res.end("Something went wrong when reading data", err);
-            }
-            const myresponse = "<h1>" + data + "</h1>" +
-                "<p>Eng Studio</p>"
-            // res.write("<h1>" + data +"<h1>");   //Send a response to a request
-            res.write(myresponse);   //Send a response to a request
-            res.end("end my response");                          //End a response
-        });
-    }
-
-}).listen(3000, 'localhost', () => {
-    // Assign a port to listen to request
-    console.log("Start server at the port 3000");
+app.get('/', function(req, res){
+    res.send(`
+    <!doctype html>
+    <html>
+      <head>
+        <link rel="stylesheet" href="/style.css">
+      </head>
+      <body>
+        <h1>Hello, world!</h1>
+      </body>
+    </html>
+  `);
 });
+
+app.listen(3000, function(){
+    console.log("Server is listening on port 3000");
+})
+
+
+// http.createServer(function (req, res) {
+//     // res.setHeader('Content-Type', 'text/html'); // set content type header
+//     // res.write("<p>Server is created</p>");         //Send a response to a request
+
+//     // Parse the URL from the request using URL module
+//     const parseURL = url_m.parse(req.url, true);
+    
+//     // Parse the pathname from the url
+//     const pathname = parseURL.pathname;
+//     // res.write("path: " + pathname);
+
+    
+//     // use path.dirname on __dirname to get the root directory
+//     const rootDir = path.dirname(__dirname);
+//     console.log("dir: " + path.dirname(__dirname));
+    
+//     // Read the data from HTML template
+//     const savePage = fs.readFileSync(rootDir + "/savefile.html", "utf-8");
+    
+    
+//     if (pathname === "/save") {
+//         // Use JSON.stringify() to convert JSON format to string
+//         console.log("url: " + JSON.stringify(parseURL.query));
+
+//         res.end(savePage);
+//     }
+//     else if (pathname === "/product") {
+//         res.write("<h2>Product page</h2>");
+//         res.end();
+//     }
+//     else {
+//         // res.writeHead(404);
+//         res.write("<h2>Not Found</h2>");
+
+
+//         fs.readFile("input/data.txt", "utf-8", (err, data) => {
+//             if (err) {
+//                 res.end("Something went wrong when reading data", err);
+//             }
+//             const myresponse = "<h1>" + data + "</h1>" +
+//                 "<p>Eng Studio</p>"
+//             // res.write("<h1>" + data +"<h1>");   //Send a response to a request
+//             res.write(myresponse);   //Send a response to a request
+//             res.end("end my response");                          //End a response
+//         });
+//     }
+
+// }).listen(3000, 'localhost', () => {
+//     // Assign a port to listen to request
+//     console.log("Start server at the port 3000");
+// });
