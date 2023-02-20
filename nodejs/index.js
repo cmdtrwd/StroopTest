@@ -48,21 +48,21 @@ const url1 = "myserver.com/fileA.json";
 const url2 = "myserver.com/fileB.json";
 const url3 = "myserver.com/fileC.json";
 
-function Downloading(url){
-    return new Promise(function(resolve, reject){   
-        console.log("Downloading " + url)     ;
-        setTimeout(()=>{
-            if (connect){
-                resolve("Successfully downloaded " + url);            
+function Downloading(url) {
+    return new Promise(function (resolve, reject) {
+        console.log("Downloading " + url);
+        setTimeout(() => {
+            if (connect) {
+                resolve("Successfully downloaded " + url);
             }
-            else{
+            else {
                 reject("Something went wrong");
             }
         }, 1000);
     });
 }
 
-async function Start(){
+async function Start() {
     console.log(await Downloading(url1));
     console.log(await Downloading(url2));
     // await Downloading(url3);
@@ -76,7 +76,7 @@ const moduleA = require('./modules/mymodule');
 console.log(moduleA.GetCurrentTime());
 moduleA.Reset();
 moduleA.Start();
-setTimeout(()=>{
+setTimeout(() => {
     moduleA.Stop();
     console.log(moduleA.GetDuration());
 }, 3000);
@@ -92,54 +92,64 @@ setTimeout(()=>{
 const fs = require('fs');
 
 // Read Data
-fs.readFile("input/data.txt", "utf-8", (err, data)=>{
-    if(err){
+fs.readFile("input/data.txt", "utf-8", (err, data) => {
+    if (err) {
         return console.log("Something went wrong when reading data");
     }
     console.log(data);
 });
 
 // Write Data
-const outputText = "Hello test test "+ moduleA.GetDuration();
+const outputText = "Hello test test " + moduleA.GetDuration();
 fs.writeFileSync("output/result.txt", outputText);
 console.log("file is created!");
 
+// Import path module
+const path = require('path');
 
 // Import http module
 const http = require('http');
 
-http.createServer(function(req, res){
-    res.setHeader('Content-Type', 'text/html'); // set content type header
-    res.write("<p>Server is created</p>");         //Send a response to a request
-    
-    const pathname = req.url;
-    res.write("path: " + pathname);
+http.createServer(function (req, res) {
+    // res.setHeader('Content-Type', 'text/html'); // set content type header
+    // res.write("<p>Server is created</p>");         //Send a response to a request
 
-    console.log("dir: " + __dirname);
-   
-    if (pathname === "/save"){
-        res.write("<h2>File is saved</h2>");
+    const pathname = req.url;
+    // res.write("path: " + pathname);
+
+    // use path.dirname on __dirname to get the root directory
+    const rootDir = path.dirname(__dirname);
+    console.log("dir: " + path.dirname(__dirname));
+
+    // Read the data from HTML template
+    const savePage = fs.readFileSync(rootDir + "/savefile.html", "utf-8");
+
+
+    if (pathname === "/save") {
+        res.end(savePage);
     }
-    else if (pathname === "/product"){
+    else if (pathname === "/product") {
         res.write("<h2>Product page</h2>");
+        res.end();
     }
-    else{
+    else {
         // res.writeHead(404);
         res.write("<h2>Not Found</h2>");
+
+
+        fs.readFile("input/data.txt", "utf-8", (err, data) => {
+            if (err) {
+                res.end("Something went wrong when reading data", err);
+            }
+            const myresponse = "<h1>" + data + "</h1>" +
+                "<p>Eng Studio</p>"
+            // res.write("<h1>" + data +"<h1>");   //Send a response to a request
+            res.write(myresponse);   //Send a response to a request
+            res.end("end my response");                          //End a response
+        });
     }
 
-    fs.readFile("input/data.txt", "utf-8", (err, data)=>{
-        if(err){
-            res.end("Something went wrong when reading data", err);
-        }
-        const myresponse = "<h1>" + data + "</h1>" +
-            "<p>Eng Studio</p>"        
-        // res.write("<h1>" + data +"<h1>");   //Send a response to a request
-        res.write(myresponse);   //Send a response to a request
-        res.end("end my response");                          //End a response
-    });
-
-}).listen(3000, 'localhost', ()=>{
+}).listen(3000, 'localhost', () => {
     // Assign a port to listen to request
     console.log("Start server at the port 3000");
 });
