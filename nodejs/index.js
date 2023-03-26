@@ -100,7 +100,7 @@ fs.readFile("input/data.txt", "utf-8", (err, data) => {
 });
 
 // Write Data
-const outputText = "Hello test test " + moduleA.GetDuration();
+const outputText = "Hello test test again" + moduleA.GetDuration();
 fs.writeFileSync("output/result.txt", outputText);
 console.log("file is created!");
 
@@ -132,6 +132,16 @@ app.get('/', function(req, res){
       </body>
     </html>
   `);
+});
+
+// using path module to get a response from a defined path
+
+const savePage = path.join(__dirname, '../templates/filesaved.html');
+
+app.get('/home', function (req, res) {
+    res.status(200);
+    res.type('text/html');
+    res.sendFile(savePage);
 });
 
 app.listen(3000, function(){
